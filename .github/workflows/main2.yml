@@ -3,7 +3,8 @@ name: Ejecutar análisis de sentimientos 2
 on:
   workflow_dispatch:   # ejecución manual desde GitHub Actions
   schedule:
-     - cron: "0 6 * * *"     # diaria a las 6 AM UTC
+     - cron: "30 14 * * 1,5" # lu y vi a las 9 30 am
+  #  - cron: "0 6 * * *"     # diaria a las 6 AM UTC
   #  - cron: "0 6 * * 1"     # semanal (lunes) a las 6 AM UTC
 
 jobs:
