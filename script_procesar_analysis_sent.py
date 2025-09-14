@@ -15,10 +15,11 @@ import boto3
 import io
 from transformers import pipeline
 import torch
+import re
 
 # Configuración S3
 s3_bucket = 'sent-analysis-pr-aws'            # Reemplaza con tu bucket
-s3_input_key = 'sql_export/respuestas_encuesta_2907_oam_sql2.parquet'  # Ruta dentro del bucket
+s3_input_key = 'sql_export/respuestas_encuesta_2907_oam_sql3.parquet'  # Ruta dentro del bucket
 s3_output_key = "sql_export/respuestas_encuesta_2907_oam_resultado.parquet"
 
 
@@ -41,8 +42,18 @@ df_encuesta = pd.read_parquet(io.BytesIO(response['Body'].read()))
 # 4️⃣ Preparar modelo HuggingFace
 classifier_5cat = pipeline("sentiment-analysis", model="nlptown/bert-base-multilingual-uncased-sentiment")
 
+def limpiar_texto(texto):
+    if texto is None:
+        return ""
+    texto = str(texto).strip()
+    texto = re.sub(r'\s+', ' ', texto)  # reemplaza múltiples espacios/saltos por uno solo
+    return texto
+
+# Limpieza primero
+df_encuesta['respuesta_limpia'] = df_encuesta['RESPUESTA'].apply(limpiar_texto)
+
 # Cortar textos largos a 512 caracteres
-df_encuesta['respuesta_limpia'] = df_encuesta['Texto_Limpio'].astype(str).str.slice(0, 512)
+#df_encuesta['respuesta_limpia'] = df_encuesta['RESPUESTA'].astype(str).str.slice(0, 512)
 
 # Procesamiento por lotes
 from tqdm import tqdm
