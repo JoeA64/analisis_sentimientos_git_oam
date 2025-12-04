@@ -18,7 +18,7 @@ import torch
 import re
 
 # Configuración S3
-s3_bucket = 'sent-analysis-pr-aws'            # Reemplaza con tu bucket
+s3_bucket = 'sent-analysis-pr-aws2'            # Reemplaza con tu bucket
 s3_input_key = 'sql_export/respuestas_encuesta_2907_oam_sql3.parquet'  # Ruta dentro del bucket
 s3_output_key = "sql_export/respuestas_encuesta_2907_oam_resultado.parquet"
 
@@ -94,7 +94,7 @@ s3 = boto3.client(
     aws_secret_access_key=os.getenv("AWS_SECRET_ACCESS_KEY")
 )
 
-bucket_name = "sent-analysis-pr-aws"
+bucket_name = "sent-analysis-pr-aws2"
 output_key = "sql_export/respuestas_encuesta_2907_oam_resultado.parquet"
 
 # Subir el CSV a S3
@@ -105,5 +105,6 @@ s3.put_object(
 )
 
 print(f"Archivo subido correctamente a s3://{bucket_name}/{output_key}")
+
 
 
