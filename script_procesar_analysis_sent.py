@@ -18,6 +18,8 @@ import torch
 import re
 
 # Configuración S3
+
+"""
 s3_bucket = 'sent-analysis-pr-aws2'            # Reemplaza con tu bucket
 s3_input_key = 'sql_export/respuestas_encuesta_2907_oam_sql3.parquet'  # Ruta dentro del bucket
 s3_output_key = "sql_export/respuestas_encuesta_2907_oam_resultado.parquet"
@@ -37,6 +39,28 @@ s3_client = boto3.client(
 # ️Leer CSV desde S3
 response = s3_client.get_object(Bucket=s3_bucket, Key=s3_input_key)
 df_encuesta = pd.read_parquet(io.BytesIO(response['Body'].read()))
+"""
+
+import pandas as pd
+import requests
+import base64
+from io import BytesIO
+
+TOKEN = "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"
+
+url = "https://api.github.com/repos/JoeA64/parquet-storage/contents/sql_export/respuestas.parquet"
+
+headers = {
+    "Authorization": f"token {TOKEN}",
+    "Accept": "application/vnd.github.v3.raw"
+}
+
+response = requests.get(url, headers=headers, verify=False)
+response.raise_for_status()
+
+df_encuesta = pd.read_parquet(BytesIO(response.content), engine="pyarrow")
+
+
 #df_encuesta.head()
 
 # 4️⃣ Preparar modelo HuggingFace
