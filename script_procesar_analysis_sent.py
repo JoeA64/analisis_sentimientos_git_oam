@@ -50,6 +50,7 @@ from io import BytesIO
 #TOKEN = "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"
 TOKEN = os.getenv("GITHUB_TOKEN")
 
+"""
 url = "https://api.github.com/repos/JoeA64/parquet-storage/contents/sql_export/respuestas.parquet"
 
 headers = {
@@ -58,6 +59,12 @@ headers = {
 }
 
 response = requests.get(url, headers=headers, verify=False)
+"""
+
+url = "https://raw.githubusercontent.com/JoeA64/parquet-storage/main/sql_export/respuestas.parquet"
+
+response = requests.get(url)
+
 response.raise_for_status()
 
 df_encuesta = pd.read_parquet(BytesIO(response.content), engine="pyarrow")
