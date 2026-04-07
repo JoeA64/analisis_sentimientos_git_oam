@@ -47,7 +47,8 @@ import requests
 import base64
 from io import BytesIO
 
-TOKEN = "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"
+#TOKEN = "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"
+TOKEN = os.getenv("GITHUB_TOKEN")
 
 url = "https://api.github.com/repos/JoeA64/parquet-storage/contents/sql_export/respuestas.parquet"
 
