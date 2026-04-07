@@ -11,11 +11,12 @@ import os
 
 # Librerías
 import pandas as pd
-import boto3
+#import boto3
 import io
 from transformers import pipeline
 import torch
 import re
+from github import Github
 
 # Configuración S3
 
@@ -114,7 +115,7 @@ parquet_buffer.seek(0)
 content = parquet_buffer.getvalue()
 
 # --- GitHub ---
-GITHUB_TOKEN = os.getenv(TOKEN)  # usa secrets en Actions
+GITHUB_TOKEN = TOKEN #GITHUB_TOKEN = os.getenv(TOKEN)  # usa secrets en Actions
 repo_name = "parquet-storage"             # nombre del repo
 file_path = "sql_export/respuestas_encuesta_2907_oam_resultado.parquet"
 commit_message = "Resultado análisis sentimientos"
