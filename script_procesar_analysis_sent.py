@@ -49,6 +49,7 @@ from io import BytesIO
 
 #TOKEN = "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"
 TOKEN = os.getenv("GITHUB_TOKEN")
+print("TOKEN cargado:", TOKEN is not None)  # Solo para debug, luego elimina
 
 """
 url = "https://api.github.com/repos/JoeA64/parquet-storage/contents/sql_export/respuestas.parquet"
@@ -61,9 +62,14 @@ headers = {
 response = requests.get(url, headers=headers, verify=False)
 """
 
-url = "https://raw.githubusercontent.com/JoeA64/parquet-storage/main/sql_export/respuestas.parquet"
+url = "https://api.github.com/repos/JoeA64/parquet-storage/contents/sql_export/respuestas.parquet"
 
-response = requests.get(url)
+headers = {
+    "Authorization": f"Bearer {TOKEN}",
+    "Accept": "application/vnd.github.v3.raw"
+}
+
+response = requests.get(url, headers=headers)
 
 response.raise_for_status()
 
