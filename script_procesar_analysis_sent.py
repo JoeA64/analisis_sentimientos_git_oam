@@ -114,12 +114,12 @@ parquet_buffer.seek(0)
 content = parquet_buffer.getvalue()
 
 # --- GitHub ---
-GITHUB_TOKEN = os.getenv("GITHUB_TOKEN")  # usa secrets en Actions
+GITHUB_TOKEN = os.getenv(TOKEN)  # usa secrets en Actions
 repo_name = "parquet-storage"             # nombre del repo
 file_path = "sql_export/respuestas_encuesta_2907_oam_resultado.parquet"
 commit_message = "Resultado análisis sentimientos"
 
-g = Github(TOKEN) #GITHUB_TOKEN
+g = Github(GITHUB_TOKEN) #GITHUB_TOKEN
 repo = g.get_user().get_repo(repo_name)
 
 # Subir archivo: si existe, actualiza; si no, crea
