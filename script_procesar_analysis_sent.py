@@ -109,6 +109,30 @@ parquet_buffer = io.BytesIO()
 #df_enriquecido2.to_csv(csv_buffer, index=False)
 df_enriquecido2.to_parquet(parquet_buffer, index=False, engine="pyarrow")
 
+# Volver al inicio del buffer antes de leerlo
+parquet_buffer.seek(0)
+content = parquet_buffer.getvalue()
+
+# --- GitHub ---
+GITHUB_TOKEN = os.getenv("GITHUB_TOKEN")  # usa secrets en Actions
+repo_name = "parquet-storage"             # nombre del repo
+file_path = "sql_export/respuestas_encuesta_2907_oam_resultado.parquet"
+commit_message = "Resultado análisis sentimientos"
+
+g = Github(TOKEN) #GITHUB_TOKEN
+repo = g.get_user().get_repo(repo_name)
+
+# Subir archivo: si existe, actualiza; si no, crea
+try:
+    file = repo.get_contents(file_path)
+    repo.update_file(file.path, commit_message, content, file.sha)
+    print("Archivo actualizado en GitHub")
+except:
+    repo.create_file(file_path, commit_message, content)
+    print("Archivo creado en GitHub")
+
+
+"""
 # Configuración del cliente S3
 s3 = boto3.client(
     "s3",
@@ -129,6 +153,6 @@ s3.put_object(
 )
 
 print(f"Archivo subido correctamente a s3://{bucket_name}/{output_key}")
-
+"""
 
 
