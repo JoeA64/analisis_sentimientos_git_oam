@@ -47,8 +47,10 @@ import requests
 import base64
 from io import BytesIO
 
-TOKEN = os.getenv("GITHUB_TOKEN")
+TOKEN = os.getenv("GH_PAT").strip()
 print("TOKEN cargado:", TOKEN is not None)  # Solo para debug, luego elimina
+print("TOKEN existe:", TOKEN is not None)
+print("TOKEN length:", len(TOKEN) if TOKEN else 0)
 
 """
 url = "https://api.github.com/repos/JoeA64/parquet-storage/contents/sql_export/respuestas.parquet"
@@ -64,7 +66,7 @@ response = requests.get(url, headers=headers, verify=False)
 url = "https://api.github.com/repos/JoeA64/parquet-storage/contents/sql_export/respuestas.parquet"
 
 headers = {
-    "Authorization": f"Bearer {TOKEN}",
+    "Authorization": f"token {TOKEN}",
     "Accept": "application/vnd.github.v3.raw"
 }
 
