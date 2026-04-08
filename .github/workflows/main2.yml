@@ -29,6 +29,6 @@ jobs:
         env:
           #AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           #AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          GITHUB_TOKEN: ${{ secrets.DJAN_TOKEN_CUSTOM }}   # 👈 AQUÍ lo agregas
+          GH_PAT: ${{ secrets.DJAN_TOKEN_CUSTOM }}
         run: |
           python script_procesar_analysis_sent.py
