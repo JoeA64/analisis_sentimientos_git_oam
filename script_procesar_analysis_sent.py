@@ -47,7 +47,6 @@ import requests
 import base64
 from io import BytesIO
 
-#TOKEN = "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"
 TOKEN = os.getenv("GITHUB_TOKEN")
 print("TOKEN cargado:", TOKEN is not None)  # Solo para debug, luego elimina
 
@@ -76,8 +75,9 @@ response.raise_for_status()
 df_encuesta = pd.read_parquet(BytesIO(response.content), engine="pyarrow")
 
 
-#df_encuesta.head()
+df_encuesta.head()
 
+"""
 # 4️⃣ Preparar modelo HuggingFace
 classifier_5cat = pipeline("sentiment-analysis", model="nlptown/bert-base-multilingual-uncased-sentiment")
 
@@ -145,6 +145,7 @@ try:
 except:
     repo.create_file(file_path, commit_message, content)
     print("Archivo creado en GitHub")
+"""
 
 
 """
