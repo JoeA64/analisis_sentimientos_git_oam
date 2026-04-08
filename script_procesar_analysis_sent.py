@@ -64,7 +64,7 @@ headers = {
 response = requests.get(url, headers=headers, verify=False)
 """
 
-#url = "https://api.github.com/repos/JoeA64/parquet-storage/contents/sql_export/respuestas.parquet"
+"""
 url = "https://raw.githubusercontent.com/JoeA64/parquet-storage/main/sql_export/respuestas.parquet"
 
 
@@ -78,6 +78,12 @@ response = requests.get(url, headers=headers)
 response.raise_for_status()
 
 df_encuesta = pd.read_parquet(BytesIO(response.content), engine="pyarrow")
+"""
+
+df_encuesta = pd.read_parquet(
+    "parquet-storage/sql_export/respuestas.parquet",
+    engine="pyarrow"
+)
 
 
 df_encuesta.head()
