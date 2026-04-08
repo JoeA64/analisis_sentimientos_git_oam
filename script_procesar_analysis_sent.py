@@ -86,9 +86,8 @@ df_encuesta = pd.read_parquet(
 )
 
 
-df_encuesta.head()
+print(df_encuesta.head())
 
-"""
 # 4️⃣ Preparar modelo HuggingFace
 classifier_5cat = pipeline("sentiment-analysis", model="nlptown/bert-base-multilingual-uncased-sentiment")
 
@@ -146,7 +145,8 @@ file_path = "sql_export/respuestas_encuesta_2907_oam_resultado.parquet"
 commit_message = "Resultado análisis sentimientos"
 
 g = Github(GITHUB_TOKEN) #GITHUB_TOKEN
-repo = g.get_user().get_repo(repo_name)
+#repo = g.get_user().get_repo(repo_name)
+repo = g.get_repo("JoeA64/parquet-storage")
 
 # Subir archivo: si existe, actualiza; si no, crea
 try:
@@ -156,7 +156,6 @@ try:
 except:
     repo.create_file(file_path, commit_message, content)
     print("Archivo creado en GitHub")
-"""
 
 
 """
