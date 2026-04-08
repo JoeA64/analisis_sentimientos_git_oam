@@ -55,6 +55,7 @@ print("TOKEN length:", len(TOKEN) if TOKEN else 0)
 """
 url = "https://api.github.com/repos/JoeA64/parquet-storage/contents/sql_export/respuestas.parquet"
 
+
 headers = {
     "Authorization": f"token {TOKEN}",
     "Accept": "application/vnd.github.v3.raw"
@@ -63,11 +64,13 @@ headers = {
 response = requests.get(url, headers=headers, verify=False)
 """
 
-url = "https://api.github.com/repos/JoeA64/parquet-storage/contents/sql_export/respuestas.parquet"
+#url = "https://api.github.com/repos/JoeA64/parquet-storage/contents/sql_export/respuestas.parquet"
+url = "https://raw.githubusercontent.com/JoeA64/parquet-storage/main/sql_export/respuestas.parquet"
+
 
 headers = {
-    "Authorization": f"token {TOKEN}",
-    "Accept": "application/vnd.github.v3.raw"
+    "Authorization": f"token {TOKEN}" #,
+    #"Accept": "application/vnd.github.v3.raw"
 }
 
 response = requests.get(url, headers=headers)
